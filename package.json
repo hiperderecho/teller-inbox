@@ -1,0 +1,21 @@
+{
+  "name": "teller-inbox",
+  "version": "0.0.0",
+  "description": "Email listener for the digital teller project",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "teller"
+  ],
+  "author": "Juan La Jara (@wxo), Hiperderecho (@hiperderecho)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
+    "console-stamp": "^0.2.0",
+    "express": "^4.13.3",
+    "request-promise": "^1.0.2"
+  }
+}

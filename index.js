@@ -5,7 +5,7 @@ require('console-stamp')(console);
 
 var app = express();
 
-app.use( bodyParser() );
+app.use( bodyParser({limit: '50mb'}) );
 app.use( compression() );
 
 var onMessagesPostRequest = require('./lib/onMessagesPostRequest');

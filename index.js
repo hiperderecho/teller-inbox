@@ -6,8 +6,9 @@ require('console-stamp')(console);
 
 var config = require('./config');
 
-var app    = express();
-var upload = multer({ dest: config.attachmentsPath });
+var app        = express();
+var fileFilter = require('./lib/fileFilter');
+var upload     = multer({ dest: config.attachmentsPath, fileFilter: fileFilter, limits: { fileSize: 10 * 1024 * 1024 } });
 
 app.use( bodyParser.json({limit: '50mb'}) );
 app.use( bodyParser.urlencoded({extended: true}) );
@@ -15,8 +16,15 @@ app.use( compression() );
 
 
 var onMessagesPostRequest = require('./lib/onMessagesPostRequest');
+var cpUpload = upload.fields(
+[ { name: 'attachment-1', maxCount: 1 }
+, { name: 'attachment-2', maxCount: 1 }
+, { name: 'attachment-3', maxCount: 1 }
+, { name: 'attachment-4', maxCount: 1 }
+, { name: 'attachment-5', maxCount: 1 }
+] );
 
-app.post( '/', upload.single( 'attachment-1' ), onMessagesPostRequest );
+app.post( '/', cpUpload, onMessagesPostRequest );
 
 var listeningPort = process.env.PORT || 5000;
 app.listen( listeningPort, function () {
